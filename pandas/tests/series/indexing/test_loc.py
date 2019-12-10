@@ -157,3 +157,17 @@ def test_basic_setitem_with_labels(datetime_series):
     s2["a"] = expected
     result = s2["a"]
     assert result == expected
+
+# test for issue https://github.com/pandas-dev/pandas/issues/29563
+def indexing_work_after_changing_Serie_SparseDType():
+    
+    fill_value = 0
+
+    s = pd.Series([fill_value])
+    tm.assert_series_equal(s, s.loc[[fill_value]])
+    dtype = pd.SparseDtype("float", fill_value=fill_value)
+    s = s.astype(dtype)
+
+    # s[[fill_value]] calls s.loc so this almoast the same test
+    tm.assert_series_equal(s, s.loc[[fill_value]])
+    tm.assert_series_equal(s, s[[fill_value]])
