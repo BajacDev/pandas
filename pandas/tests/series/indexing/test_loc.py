@@ -159,7 +159,7 @@ def test_basic_setitem_with_labels(datetime_series):
     assert result == expected
 
 # test for issue https://github.com/pandas-dev/pandas/issues/29563
-def indexing_work_after_changing_Serie_SparseDType():
+def test_indexing_work_after_changing_Serie_SparseDType():
     
     fill_value = 0
 
